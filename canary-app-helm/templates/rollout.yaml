@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "canary-app-helm.fullname" . }}
+  labels:
+    {{- include "canary-app-helm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    canary:
+      canaryService: {{ include "canary-app-helm.fullname" . }}-canary
+      stableService: {{ include "canary-app-helm.fullname" . }}-stable
+      trafficRouting:
+        nginx:
+          stableIngress: {{ include "canary-app-helm.fullname" . }}-stable-ingress
+          canaryIngress: {{ include "canary-app-helm.fullname" . }}-canary-ingress
+      steps:
+      - setWeight: 0
+      - pause: {}  # Wait for tests to complete
+      - setWeight: 100
+  template:
+    metadata:
+      labels:
+        {{- include "canary-app-helm.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: nginx
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
