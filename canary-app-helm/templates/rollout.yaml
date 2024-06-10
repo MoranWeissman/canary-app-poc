@@ -6,6 +6,9 @@ metadata:
     {{- include "canary-app-helm.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "canary-app-helm.fullname" . }}
   strategy:
     canary:
       canaryService: {{ include "canary-app-helm.fullname" . }}-canary
@@ -21,6 +24,7 @@ spec:
   template:
     metadata:
       labels:
+        app: {{ include "canary-app-helm.fullname" . }}
         {{- include "canary-app-helm.selectorLabels" . | nindent 8 }}
     spec:
       containers:
