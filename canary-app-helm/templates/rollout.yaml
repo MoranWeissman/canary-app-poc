@@ -14,9 +14,7 @@ spec:
       canaryService: {{ include "canary-app-helm.fullname" . }}-canary
       stableService: {{ include "canary-app-helm.fullname" . }}-stable
       trafficRouting:
-        nginx:
-          stableIngress: {{ include "canary-app-helm.fullname" . }}-stable-ingress
-          canaryIngress: {{ include "canary-app-helm.fullname" . }}-canary-ingress
+        nginx: {}
       steps:
       - setWeight: 0
       - pause: {}  # Wait for tests to complete
