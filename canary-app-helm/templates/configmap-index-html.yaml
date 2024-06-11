@@ -10,7 +10,7 @@ data:
         <title>Demo App</title>
     </head>
     <body>
-        <h1>Demo App Version: <span id="version"></span></h1>
+        <h1>Demo App Version: <span id="version">{{ .Values.version }}</span></h1>
         <script>
             fetch('/config/version')
                 .then(response => response.text())
