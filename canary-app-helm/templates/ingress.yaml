@@ -6,20 +6,20 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: minikube.local
+  - host: {{ .Values.ingress.host }}
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: demo-app-canary-app-helm-stable
+            name: {{ include "canary-app-helm.fullname" . }}-stable
             port:
               number: 80
       - path: /canary
         pathType: Prefix
         backend:
           service:
-            name: demo-app-canary-app-helm-canary
+            name: {{ include "canary-app-helm.fullname" . }}-canary
             port:
               number: 80
