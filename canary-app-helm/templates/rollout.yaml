@@ -32,3 +32,14 @@ spec:
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         ports:
         - containerPort: {{ .Values.service.port }}
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/demo-app
+          subPath: version
+      volumes:
+      - name: config-volume
+        configMap:
+          name: demo-app-config
+          items:
+          - key: version
+            path: version
