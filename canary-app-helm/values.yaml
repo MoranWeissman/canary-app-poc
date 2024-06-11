@@ -11,10 +11,5 @@ service:
 
 version: "1.0.0"
 
-service:
-  type: ClusterIP
-  port: 80
-  targetPort: 80
-  
 ingress:
   host: minikube.local
