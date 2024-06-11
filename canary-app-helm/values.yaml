@@ -9,7 +9,7 @@ service:
   port: 80
   targetPort: 80
 
-version: "1.0.0"
+version: "1.0.1"
 
 ingress:
   host: minikube.local
