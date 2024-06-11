@@ -6,6 +6,7 @@ metadata:
     {{- include "canary-app-helm.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 0  # Do not retain any history of old ReplicaSets
   selector:
     matchLabels:
       app: {{ include "canary-app-helm.fullname" . }}
