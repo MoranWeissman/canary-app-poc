@@ -5,13 +5,14 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "10"
+    nginx.ingress.kubernetes.io/canary-by-header: "X-Canary"
+    nginx.ingress.kubernetes.io/canary-by-header-value: "true"
 spec:
   rules:
   - host: minikube.local
     http:
       paths:
-      - path: /canary
+      - path: /
         pathType: Prefix
         backend:
           service:
