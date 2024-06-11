@@ -9,9 +9,6 @@ service:
   port: 80
   targetPort: 80
 
-ingress:
-  host: demo-app.local
-
 version: "1.0.0"
 
 service:
