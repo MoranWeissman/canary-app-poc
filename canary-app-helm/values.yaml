@@ -1,18 +1,13 @@
 replicaCount: 5
 
 image:
-  repository: nginx
-  tag: 1.19.2
+  repository: demo-app
+  tag: 1.0.0
 
 service:
   type: ClusterIP
   port: 80
   targetPort: 80
 
-version: "2.0.0"
-
 ingress:
   host: minikube.local
-
-canaryHash: "54b995c67"
-stableHash: "stablehashplaceholder"
