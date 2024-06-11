@@ -33,7 +33,7 @@ spec:
         - containerPort: {{ .Values.service.port }}
         volumeMounts:
         - name: config-volume
-          mountPath: /etc/demo-app
+          mountPath: /etc/demo-app/version
           subPath: version
         - name: nginx-config-volume
           mountPath: /etc/nginx/conf.d
