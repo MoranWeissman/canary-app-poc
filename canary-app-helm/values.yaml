@@ -13,3 +13,6 @@ version: "1.0.0"
 
 ingress:
   host: minikube.local
+
+canaryHash: "54b995c67"
+stableHash: "stablehashplaceholder"
