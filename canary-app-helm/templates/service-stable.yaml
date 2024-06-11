@@ -5,11 +5,11 @@ metadata:
   labels:
     {{- include "canary-app-helm.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
       name: http
   selector:
-    app: {{ include "canary-app-helm.fullname" . }}
+    {{- include "canary-app-helm.selectorLabels" . | nindent 4 }}
