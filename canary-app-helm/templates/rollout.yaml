@@ -6,7 +6,7 @@ metadata:
     {{- include "canary-app-helm.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  revisionHistoryLimit: 0  # Do not retain any history of old ReplicaSets
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       {{- include "canary-app-helm.selectorLabels" . | nindent 6 }}
@@ -17,14 +17,13 @@ spec:
       trafficRouting:
         nginx:
           stableIngress: {{ include "canary-app-helm.fullname" . }}-ingress
-          canaryIngress: {{ include "canary-app-helm.fullname" . }}-ingress-canary
       steps:
       - setWeight: 0
-      - pause: {}  # Wait for tests to complete
+      - pause: {}  # Pause to test new version
       - setWeight: 10
-      - pause: {}  # Wait for tests to complete
+      - pause: {}  # Pause to test new version
       - setWeight: 50
-      - pause: {}  # Wait for tests to complete
+      - pause: {}  # Pause to test new version
       - setWeight: 100
   template:
     metadata:
