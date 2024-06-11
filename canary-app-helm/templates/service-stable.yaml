@@ -12,4 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "canary-app-helm.selectorLabels" . | nindent 4 }}
+    app: {{ include "canary-app-helm.fullname" . }}
+    rollouts-pod-template-hash: {{ .Values.stableHash }}
