@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: {{ include "canary-app-helm.fullname" . }}-nginx
 data:
   default.conf: |
     server {
@@ -10,7 +10,7 @@ data:
             root /usr/share/nginx/html;
             index index.html;
         }
-        location /version {
+        location /config/version {
             default_type text/plain;
             alias /etc/demo-app/version;
         }
