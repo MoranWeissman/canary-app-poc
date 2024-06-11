@@ -17,10 +17,15 @@ spec:
       trafficRouting:
         nginx:
           stableIngress: {{ include "canary-app-helm.fullname" . }}-ingress
+          canaryIngress: {{ include "canary-app-helm.fullname" . }}-ingress-canary
       steps:
       - setWeight: 0
       - pause: {}  # Wait for tests to complete
-      - setWeight: 100
+      - setWeight: 10       # Shift 10% of traffic to canary
+      - pause: {}           # Pause to test new version
+      - setWeight: 50       # Shift 50% of traffic to canary
+      - pause: {}           # Pause to test new version
+      - setWeight: 100      # Shift 100% of traffic to canary (promote fully)
   template:
     metadata:
       labels:
