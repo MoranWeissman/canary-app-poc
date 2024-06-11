@@ -1,29 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "canary-app-helm.fullname" . }}-ingress
+  name: demo-app-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-by-header: "canary"
-  labels:
-    {{- include "canary-app-helm.labels" . | nindent 4 }}
 spec:
   rules:
-  - host: {{ .Values.ingress.host }}
+  - host: minikube.local
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: {{ include "canary-app-helm.fullname" . }}-stable
+            name: demo-app-canary-app-helm-stable
             port:
-              number: {{ .Values.service.port }}
+              number: 80
       - path: /canary
         pathType: Prefix
         backend:
           service:
-            name: {{ include "canary-app-helm.fullname" . }}-canary
+            name: demo-app-canary-app-helm-canary
             port:
-              number: {{ .Values.service.port }}
+              number: 80
