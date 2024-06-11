@@ -42,4 +42,19 @@ spec:
       volumes:
       - name: config-volume
         configMap:
-          name: {{ include "canary-app-helm
+          name: {{ include "canary-app-helm.fullname" . }}-config
+          items:
+          - key: version
+            path: version
+      - name: nginx-config-volume
+        configMap:
+          name: {{ include "canary-app-helm.fullname" . }}-nginx
+          items:
+          - key: default.conf
+            path: default.conf
+      - name: html-volume
+        configMap:
+          name: {{ include "canary-app-helm.fullname" . }}-html
+          items:
+          - key: index.html
+            path: index.html
