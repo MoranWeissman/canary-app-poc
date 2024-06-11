@@ -27,7 +27,7 @@ spec:
         {{- include "canary-app-helm.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: nginx
+      - name: demo-app
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         ports:
         - containerPort: {{ .Values.service.port }}
