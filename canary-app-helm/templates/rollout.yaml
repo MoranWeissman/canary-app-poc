@@ -36,6 +36,8 @@ spec:
         - name: config-volume
           mountPath: /etc/demo-app
           subPath: version
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/conf.d
       volumes:
       - name: config-volume
         configMap:
@@ -43,3 +45,9 @@ spec:
           items:
           - key: version
             path: version
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config
+          items:
+          - key: default.conf
+            path: default.conf
