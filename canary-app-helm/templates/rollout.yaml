@@ -17,10 +17,13 @@ spec:
       trafficRouting:
         nginx:
           stableIngress: {{ include "canary-app-helm.fullname" . }}-ingress
-          canaryIngress: {{ include "canary-app-helm.fullname" . }}-ingress-canary
+          annotationPrefix: customingress.nginx.ingress.kubernetes.io # optional
+          additionalIngressAnnotations:   # optional
+            canary-by-header: X-Canary
+            canary-by-header-value: iwantsit
       steps:
-      - setWeight: 0
-      - pause: {}  # Wait for tests to complete
+      - setWeight: 0        # Initial setup with 0% traffic to canary
+      - pause: {}           # Pause to test new version
       - setWeight: 10       # Shift 10% of traffic to canary
       - pause: {}           # Pause to test new version
       - setWeight: 50       # Shift 50% of traffic to canary
