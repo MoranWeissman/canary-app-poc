@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "canary-app-helm.fullname" . }}-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Demo App</title>
+    </head>
+    <body>
+        <h1>Demo App Version: <span id="version"></span></h1>
+        <script>
+            fetch('/config/version')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('version').textContent = data;
+                });
+        </script>
+    </body>
+    </html>
