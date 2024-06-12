@@ -16,7 +16,7 @@ spec:
       stableService: {{ .Chart.Name }}-stable
       trafficRouting:
         nginx:
-          stableIngress: {{ Chart.Name }}-ingress
+          stableIngress: {{ .Chart.Name }}-ingress
       steps:
       - setWeight: 0
       - pause: {}  # Pause to test new version
