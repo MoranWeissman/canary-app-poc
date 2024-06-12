@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: {{ include "canary-app-helm.fullname" . }}
+  name: {{ Chart.Name }}
   labels:
     {{- include "canary-app-helm.labels" . | nindent 4 }}
 spec:
@@ -12,11 +12,11 @@ spec:
       {{- include "canary-app-helm.selectorLabels" . | nindent 6 }}
   strategy:
     canary:
-      canaryService: {{ include "canary-app-helm.fullname" . }}-canary
-      stableService: {{ include "canary-app-helm.fullname" . }}-stable
+      canaryService: {{ Chart.Name }}-canary
+      stableService: {{ Chart.Name }}-stable
       trafficRouting:
         nginx:
-          stableIngress: {{ include "canary-app-helm.fullname" . }}-ingress
+          stableIngress: {{ Chart.Name }}-ingress
       steps:
       - setWeight: 0
       - pause: {}  # Pause to test new version
@@ -28,7 +28,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ include "canary-app-helm.fullname" . }}
+        app: {{ Chart.Name }}
         {{- include "canary-app-helm.selectorLabels" . | nindent 8 }}
     spec:
       containers:
