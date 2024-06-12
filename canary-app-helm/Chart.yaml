@@ -1,5 +1,5 @@
 apiVersion: v2
-name: canary-app-helm
+name: canary-poc-app
 description: A Helm chart for a canary deployment demo
 version: 0.1.0
 appVersion: 1.0.0
