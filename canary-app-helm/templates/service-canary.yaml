@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "canary-app-helm.fullname" . }}-canary
+  name: {{ Chart.Name }}-canary
   labels:
     {{- include "canary-app-helm.labels" . | nindent 4 }}
 spec:
