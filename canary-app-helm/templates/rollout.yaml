@@ -17,6 +17,9 @@ spec:
       trafficRouting:
         nginx:
           stableIngress: {{ .Chart.Name }}-ingress
+          additionalIngressAnnotations:
+            nginx.ingress.kubernetes.io/canary-by-header: X-Canary
+            nginx.ingress.kubernetes.io/canary-by-header-value: 'true'
       steps:
       - setWeight: 0
       - pause: {}  # Pause to test new version
