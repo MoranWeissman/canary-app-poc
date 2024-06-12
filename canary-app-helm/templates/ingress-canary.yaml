@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "canary-app-helm.fullname" . }}-ingress-canary
+  name: {{ Chart.Name }}-ingress-canary
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/canary: "true"
@@ -16,6 +16,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ include "canary-app-helm.fullname" . }}-canary
+            name: {{ Chart.Name }}-canary
             port:
               number: 80
